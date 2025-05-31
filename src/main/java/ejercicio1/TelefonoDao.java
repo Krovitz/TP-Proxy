@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PersonaDao {
+public class TelefonoDao {
+
     private Connection obtenerConexion() {
         Connection conn = null;
         try {
@@ -17,24 +19,25 @@ public class PersonaDao {
         }
     }
 
-    public Persona personaPorId(int id) {
-        String sql = "select p.nombre "
-                + "from personas p "
-                + "where p.id = ?";
+    public List<Telefono> telefonosPorPersona(int idPersona) {
+        String sql = "SELECT numero FROM telefonos WHERE idPersona = ?";
+
         try (Connection conn = obtenerConexion();
-             PreparedStatement statement =
-                     conn.prepareStatement(sql);) {
-            statement.setInt(1, id);
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setInt(1, idPersona);
             ResultSet result = statement.executeQuery();
-            Set<Telefono> telefonos = new ProxyTelefono(id);
-            String nombrePersona = null;
+
+            List<Telefono> telefonos = new ArrayList<>();
             while (result.next()) {
-                nombrePersona = result.getString(1);
+                String numero = result.getString("numero");
+                telefonos.add(new Telefono(numero));
             }
-            return new Persona(id, nombrePersona, telefonos);
+            return telefonos;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-}
 
+}
