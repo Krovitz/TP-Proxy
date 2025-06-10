@@ -26,7 +26,7 @@ public class PersonaDao {
                      conn.prepareStatement(sql);) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
-            Set<Telefono> telefonos = new ProxyTelefono(id);
+            Set<Telefono> telefonos = new ProxyTelefono(id, new TelefonoDao());
             String nombrePersona = null;
             while (result.next()) {
                 nombrePersona = result.getString(1);

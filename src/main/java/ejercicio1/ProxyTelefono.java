@@ -7,15 +7,17 @@ import java.util.Set;
 
 public class ProxyTelefono implements Set {
     private final int idPersona;
-    private final TelefonoDao dao = new TelefonoDao();
-    //Estaria bien setear los telefonos en una variable de instancia?? o asi esta bien?
+    private final TelefonoDao dao;
+    private List<Telefono> telefonos;
 
-    public ProxyTelefono(int idPersona) {
+    public ProxyTelefono(int idPersona, TelefonoDao dao) {
         this.idPersona = idPersona;
+        this.dao = dao;
     }
 
     private List<Telefono> obtenerTelefonos() {
-        return dao.telefonosPorPersona(idPersona);
+        telefonos = dao.telefonosPorPersona(idPersona);
+        return telefonos;
     }
 
 
