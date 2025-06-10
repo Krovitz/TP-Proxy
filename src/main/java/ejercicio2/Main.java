@@ -8,7 +8,7 @@ public class Main {
         var usuario = new Usuario("Juan", List.of(Permiso.BASICO));
 
         var file = new ProxySeguridad(new FileAccess("C:/Users/Tomas/Desktop/", "marchivo.txt"),
-                "marchivo.txt", usuario);
+                usuario);
 
         var contenido = file.readFile();
         System.out.println(contenido);

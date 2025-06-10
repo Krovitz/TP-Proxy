@@ -18,4 +18,7 @@ public class FileAccess implements LecturaDeArchivo {
         return Files.readString(Paths.get(this.ruta + "/" + this.nombreArchivo));
     }
 
+    public String nombreArchivo() {
+        return nombreArchivo;
+    }
 }
