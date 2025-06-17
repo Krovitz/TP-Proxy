@@ -13,10 +13,12 @@ public class ProxySeguridad implements LecturaDeArchivo {
 
     @Override
     public String readFile() throws IOException {
-        if (fileAccess.nombreArchivo().startsWith("i") && !usuario.poseePermiso(Permiso.ADMIN))
+        if (fileAccess.empiezaCon("i") && !usuario.poseePermiso(Permiso.ADMIN))
             throw new RuntimeException("No posees permiso para leer el contenido de este archivo");
-        if (fileAccess.nombreArchivo().startsWith("m") && (!usuario.poseePermiso(Permiso.ADMIN) && !usuario.poseePermiso(Permiso.INTERMEDIO)))
+        if (fileAccess.empiezaCon("m") && (!usuario.poseePermiso(Permiso.ADMIN) && !usuario.poseePermiso(Permiso.INTERMEDIO)))
             throw new RuntimeException("No posees permiso para leer el contenido de este archivo");
         return fileAccess.readFile();
     }
+
+
 }

@@ -21,4 +21,8 @@ public class FileAccess implements LecturaDeArchivo {
     public String nombreArchivo() {
         return nombreArchivo;
     }
+
+    public boolean empiezaCon(String unaLetra) {
+        return nombreArchivo.startsWith(unaLetra);
+    }
 }
